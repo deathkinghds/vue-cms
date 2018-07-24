@@ -10,40 +10,40 @@
     <!-- 九宫格 到 六宫格 的改造 -->
     <ul class="mui-table-view mui-grid-view mui-grid-9">
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-        <a href="#">
+        <router-link to="/home/newlist">
           <img src="../../images/menu1.png" alt="">
           <div class="mui-media-body">新闻资讯</div>
-        </a>
+        </router-link>
       </li>
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-        <a href="#">
+        <router-link to="#">
           <img src="../../images/menu2.png" alt="">
           <div class="mui-media-body">图片分享</div>
-        </a>
+        </router-link>
       </li>
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-        <a href="#">
+        <router-link to="#">
           <img src="../../images/menu3.png" alt="">
           <div class="mui-media-body">商品购买</div>
-        </a>
+        </router-link>
       </li>
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-        <a href="#">
+        <router-link to="#">
           <img src="../../images/menu4.png" alt="">
           <div class="mui-media-body">留言反馈</div>
-        </a>
+        </router-link>
       </li>
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-        <a href="#">
+        <router-link to="#">
           <img src="../../images/menu5.png" alt="">
           <div class="mui-media-body">视频专区</div>
-        </a>
+        </router-link>
       </li>
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-        <a href="#">
+        <router-link to="#">
           <img src="../../images/menu6.png" alt="">
           <div class="mui-media-body">联系我们</div>
-        </a>
+        </router-link>
       </li>
     </ul>
   </div>
@@ -65,7 +65,7 @@
     methods: {
       //获取轮播图数据的方法
       getLunbotu() {
-        this.$http.get('http://47.89.21.179:8080/api/getLunbo').then(result => {
+        this.$http.get('api/getLunbo').then(result => {
           // console.log(result.body);
           if (result.body.status === 0) {
             this.lunbotuList = result.body.message;
