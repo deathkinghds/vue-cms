@@ -36,7 +36,7 @@ module.exports = {
             //处理scss文件的loader
             { test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
             //处理图片路径的loader
-            { test: /\.(jpg|jpeg|png|gif|bmg)$/, use: 'url-loader?limit=45975&name=[hash:8]-[name].[exit]' },
+            { test: /\.(jpg|jpeg|png|gif|bmg|webp)$/, use: 'url-loader?limit=45975&name=[hash:8]-[name].[exit]' },
             //处理字体文件的loader
             { test: /\.(ttf|eot|svg|woff|woff2)$/, use: 'url-loader' },
             //配置ES6高级语法转低级语法的loader
