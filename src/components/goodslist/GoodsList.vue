@@ -1,55 +1,83 @@
 <template>
   <div class="goods-list">
-    <div class="goods-item">
-      <img src="../../images/xiaomi1.webp" alt="">
-      <h1 class="title">小米MIX 2S骁龙845旗舰处理器，AI双摄</h1>
+   <!--  <router-link class="goods-item" v-for="item in goodslist" :key="item.id" to="'/home/goodsinfo/' + item.id" tag="div">
+      <img :src="item.img_url" >
+      <h1 class="title">{{ item.title }}</h1>
       <div class="info">
         <p class="price">
-          <span class="now">￥899</span>
-          <span class="old">￥999</span>
+          <span class="now">￥{{ item.sell_price }}</span>
+          <span class="old">￥{{ item.market_price }}</span>
         </p>
         <p class="sell">
           <span>热卖中</span>
-          <span>剩60件</span>
+          <span>剩{{ item.stock_quantity }}件</span>
         </p>
       </div>
-    </div>
-    <div class="goods-item">
-      <img src="../../images/xiaomi2.webp" alt="">
-      <h1 class="title">小米MIX 2S骁龙845旗舰处理器，AI双摄</h1>
+    </router-link> -->
+
+    <div class="goods-item" v-for="item in goodslist" :key="item.id" @click="goDetail(item.id)">
+      <img :src="item.img_url" >
+      <h1 class="title">{{ item.title }}</h1>
       <div class="info">
         <p class="price">
-          <span class="now">￥899</span>
-          <span class="old">￥999</span>
+          <span class="now">￥{{ item.sell_price }}</span>
+          <span class="old">￥{{ item.market_price }}</span>
         </p>
         <p class="sell">
           <span>热卖中</span>
-          <span>剩60件</span>
+          <span>剩{{ item.stock_quantity }}件</span>
         </p>
       </div>
     </div>
-    <div class="goods-item">
-      <img src="../../images/xiaomi3.webp" alt="">
-      <h1 class="title">小米MIX 2S骁龙845旗舰处理器，AI双摄</h1>
-      <div class="info">
-        <p class="price">
-          <span class="now">￥899</span>
-          <span class="old">￥999</span>
-        </p>
-        <p class="sell">
-          <span>热卖中</span>
-          <span>剩60件</span>
-        </p>
-      </div>
-    </div>
+
+    <mt-button type="danger" size="large" @click="getMore">加载更多</mt-button>
   </div>
 </template>
 <script>
   export default {
     data() {
-      return {};
+      //往data内部 挂载一些私有数据
+      return {
+        //分页的页数
+        pageindex: 1,
+        //存放商品列表的数组
+        goodslist: []
+      };
     },
-    methods: {}
+    created () {
+      this.getGoodsList();
+    },
+    methods: {
+      getGoodsList() {
+        //获取商品列表
+        this.$http.get('api/getgoods?pageindex=' + this.pageindex).then(result => {
+          if (result.body.status === 0) {
+            // this.goodslist = result.body.message;
+            this.goodslist = this.goodslist.concat(result.body.message);
+          }
+        })
+      },
+      getMore () {
+        this.pageindex++;
+        this.getGoodsList();
+      },
+      goDetail(id) {
+        //使用 js 的形式进行路由导航
+        //注意 一定要区分 this.#route 和 this.$router 这两个对象
+        //其中 this.$route 是路由【参数对象】 所有路由中的参数 params, query都属于它
+        //其中 this.$router 是一个路由【导航对象】 用它可以方便的使用 js 代码 实现路由的前进 后退 跳转到新的 URL 地址
+        console.log(this);
+        //1.最简单的方式
+        //this.$router.push('/home/goodsinfo/' + id);
+
+        //2.传递对象
+        //this.$router.push({ path: '/home/goodsinfo/'+ id });
+
+        //3.传递命名的路由
+        this.$router.push({ name: 'goodsinfo', params: { id } });
+      }
+
+    }
   };
 </script>
 <style lang="scss" scoped>
@@ -98,7 +126,6 @@
             font-size: 12px;
             margin-left: 10px;
           }
-
         }
 
         .sell {
